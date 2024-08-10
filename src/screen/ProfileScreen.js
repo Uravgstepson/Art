@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 
-export class Input extends Component {
+export class ProfileScreen extends Component {
   render() {
     return (
       <View>
-        <Text></Text>
+        <Text> textInComponent </Text>
       </View>
     );
   }
 }
 
-export default Input;
+export default ProfileScreen;

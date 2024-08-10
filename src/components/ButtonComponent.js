@@ -3,11 +3,7 @@ import {Text, View} from 'react-native';
 
 export class Button extends Component {
   render() {
-    return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
-    );
+    return <View></View>;
   }
 }
 

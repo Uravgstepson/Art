@@ -26,11 +26,12 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import LoginScreen from './src/screen/LoginScreen';
 import RegisterScreen from './src/screen/RegisterScreen';
+import MainNavigator from './src/navigator/MainNavigator';
 
 const App = () => {
   return (
     <SafeAreaView>
-      <RegisterScreen />
+      <MainNavigator />
     </SafeAreaView>
   );
 };
