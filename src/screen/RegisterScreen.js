@@ -1,59 +1,100 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
+  Button,
 } from 'react-native';
-import {Button} from '../components/ButtonComponent';
-import {Input} from '../components/InputComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { createProfile } from '../store/actions/ProfileAction';
+
 
 const RegisterScreen = props => {
+
   const {navigation} = props;
+  const dispatch = useDispatch()
+
+  const globalProfileData = useSelector(store => store.profileReducer)
+
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
+
+  const handleRegister = () => {
+    dispatch(createProfile(form))
+  };
+
+  const onChangeInput = (inputType, value) => {
+    setForm({
+      ...form,
+      [inputType]: value
+    })
+  }
+
+  useEffect(() => {
+    console.log('global data')
+    console.log(globalProfileData)
+  })
+
   return (
-    <ScrollView contentContainerStyle={styles.scroll}>
-      <View style={styles.mainContainer}>
-        <View style={styles.inputContainer}>
-          <Input title="Username" placeholder="Username" />
-          <Input title="Email" placeholder="Email" />
-          <Input title="Password" placeholder="Password" />
-        </View>
-        <Button text="Register" />
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Already have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.loginText}>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Text style={styles.header}>Register</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        value={form.username}
+        onChangeText={(text) => onChangeInput('username', text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={form.email}
+        onChangeText={(text) => onChangeInput('email', text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+        value={form.password}
+        onChangeText={(text) => onChangeInput('password', text)}
+      />
+      <Button title="Register" onPress={handleRegister} />
+      <Button
+        title="Back to Login"
+        onPress={() => navigation.goBack()}
+        color="#007BFF"
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scroll: {
-    flexGrow: 1,
-  },
-  mainContainer: {
+  container: {
     flex: 1,
-    backgroundColor: '#E6E6FA',
-    alignItems: 'center',
-  },
-  inputContainer: {
+    justifyContent: 'center',
     padding: 16,
-    width: '100%',
   },
-  textContainer: {
-    flexDirection: 'row',
-    marginTop: 16,
+  header: {
+    fontSize: 24,
+    marginBottom: 16,
+    textAlign: 'center',
   },
-  text: {
-    fontSize: 16,
-  },
-  loginText: {
-    color: '#1A5B0A',
-    fontSize: 16,
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+    borderRadius: 4,
   },
 });
+
 export default RegisterScreen;
