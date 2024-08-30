@@ -4,7 +4,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
 import {Text} from 'react-native';
-import HomeScreen from '../screens/HomeScreen';
+import ProfileScreen from '../screen/ProfileScreen';
+import LoginScreen from '../screen/LoginScreen';
+import RegisterScreen from '../screen/RegisterScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator;
@@ -14,7 +16,7 @@ const StartScreen = () => {
     <Tab.Navigator initialRouteName="Home">
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: ({focused}) => (
             <Text
@@ -47,10 +49,17 @@ const StartScreen = () => {
 const MainNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Start">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
-          name="Start"
-          component={StartScreen}
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
           options={{
             headerShown: false,
           }}

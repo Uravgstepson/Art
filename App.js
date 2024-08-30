@@ -27,12 +27,24 @@ import {
 import LoginScreen from './src/screen/LoginScreen';
 import RegisterScreen from './src/screen/RegisterScreen';
 import MainNavigator from './src/navigator/MainNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { profileReducer } from './src/store/reducers/ProfileReducer';
+
+const rootReducer = combineReducers({
+  profileReducer: profileReducer
+})
+
+const store = createStore(rootReducer)
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <MainNavigator />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <MainNavigator />
+      </SafeAreaProvider>
+    </Provider>
   );
 };
 
